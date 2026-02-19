@@ -1,0 +1,76 @@
+{
+  "content": [
+    {
+      "type": "Profile",
+      "props": {
+        "id": "Profile-1",
+        "name": "Espera AWO",
+        "title": "Software Engineer",
+        "bio": "I build complete mobile & web products — from the app you use to the servers and automatic deployments",
+        "imageSrc": "https://avatars.githubusercontent.com/u/34925222?v=4",
+        "githubUrl": "https://github.com/esperaking81",
+        "twitterUrl": "https://twitter.com/youyuxi",
+        "linkedinUrl": "https://www.linkedin.com/in/espera-awo",
+        "email": "iamespera@gmail.com"
+      }
+    },
+    {
+      "type": "VerticalSpace",
+      "props": {
+        "id": "VerticalSpace-1",
+        "size": "48px"
+      }
+    },
+    {
+      "type": "ProjectList",
+      "props": {
+        "id": "ProjectList-1",
+        "title": "Selected Projects",
+        "projects": [
+          {
+            "title": "Vue.js",
+            "description": "The Progressive JavaScript Framework.",
+            "link": "https://vuejs.org"
+          },
+          {
+            "title": "Vite",
+            "description": "Next Generation Frontend Tooling.",
+            "link": "https://vitejs.dev"
+          }
+        ]
+      }
+    },
+    {
+      "type": "VerticalSpace",
+      "props": {
+        "id": "VerticalSpace-2",
+        "size": "48px"
+      }
+    },
+    {
+      "type": "WritingList",
+      "props": {
+        "id": "WritingList-1",
+        "title": "Writing",
+        "posts": [
+          {
+            "title": "State of Vue 2024",
+            "date": "Jan 1, 2024",
+            "link": "#"
+          },
+          {
+            "title": "The Future of Frontend Tooling",
+            "date": "Dec 15, 2023",
+            "link": "#"
+          }
+        ]
+      }
+    }
+  ],
+  "root": {
+    "props": {
+      "title": "Portfolio"
+    }
+  },
+  "zones": {}
+}
