@@ -1,7 +1,5 @@
 import { Render } from "@measured/puck/rsc";
 import config from "@/lib/puck.config";
-import fs from "fs";
-import path from "path";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -9,20 +7,15 @@ export const metadata: Metadata = {
   description: "Built with Next.js",
 };
 
-export default async function Page() {
-  const filePath = path.join(process.cwd(), "puck.json");
-  let data = { content: [], root: { title: "Portfolio" } };
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+const JSON_URL = `${BASE_URL}/api/puck`;
 
-  if (fs.existsSync(filePath)) {
-    const fileContent = fs.readFileSync(filePath, "utf-8");
-    if (fileContent) {
-      try {
-        data = JSON.parse(fileContent);
-      } catch (e) {
-        console.error("Failed to parse puck.json", e);
-      }
-    }
-  }
+export default async function Page() {
+  const response = await fetch(JSON_URL);
+  const data = (await response.json()) || {
+    content: [],
+    root: { title: "Portfolio" },
+  };
 
   return (
     <main className="min-h-screen bg-white dark:bg-black">
