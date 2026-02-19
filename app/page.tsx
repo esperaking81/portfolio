@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { Render } from "@measured/puck/rsc";
 import config from "@/lib/puck.config";
 import { Metadata } from "next";
@@ -12,10 +14,7 @@ const JSON_URL = `${BASE_URL}/api/puck`;
 
 export default async function Page() {
   const response = await fetch(JSON_URL);
-  const data = (await response.json()) || {
-    content: [],
-    root: { title: "Portfolio" },
-  };
+  const data = await response.json();
 
   return (
     <main className="min-h-screen bg-white dark:bg-black">

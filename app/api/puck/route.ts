@@ -6,16 +6,14 @@ import { put, list } from "@vercel/blob";
 const FILE_NAME = "puck.json";
 const DATA_FILE = path.join(process.cwd(), "puck.json");
 
-const prettyPrint = ({ data }: { data: object }) =>
-  console.log(">> prettyPrint => ", JSON.stringify(data, null, 2));
-
 export async function GET() {
   const { blobs } = await list({
     prefix: FILE_NAME,
   });
 
   if (!blobs.length) {
-    return null;
+    const data = fs.readFileSync(DATA_FILE, "utf-8");
+    return NextResponse.json(JSON.parse(data));
   }
 
   const blobUrl = blobs[0].url;
@@ -23,14 +21,11 @@ export async function GET() {
   const response = await fetch(blobUrl, { cache: "no-store" });
   const data = await response.json();
 
-  prettyPrint({ data });
-
   return NextResponse.json(data);
 }
 
 export async function POST(request: Request) {
   const data = await request.json();
-  prettyPrint({ data });
 
   await put(FILE_NAME, JSON.stringify(data), {
     access: "public",
