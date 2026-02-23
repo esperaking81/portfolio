@@ -4,6 +4,7 @@ import { Puck, Data } from "@measured/puck";
 import config from "@/lib/puck.config";
 import "@measured/puck/puck.css";
 import { useEffect, useState } from "react";
+import {toast} from "sonner";
 
 export default function Editor() {
   const [data, setData] = useState<Data | null>(null);
@@ -34,7 +35,7 @@ export default function Editor() {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(d),
         });
-        alert("Saved!");
+        toast.success("Your changes have been published.");
       }}
     />
   );

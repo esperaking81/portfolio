@@ -1,7 +1,8 @@
-import type { Config } from "@measured/puck";
-import { Profile } from "@/components/Profile";
-import { ProjectList } from "@/components/ProjectList";
-import { WritingList } from "@/components/WritingList";
+import type {Config} from "@measured/puck";
+import {Profile} from "@/components/Profile";
+import {ProjectList} from "@/components/ProjectList";
+import {WritingList} from "@/components/WritingList";
+import {uuid} from "@/lib/utils";
 
 type Props = {
     Profile: {
@@ -16,7 +17,7 @@ type Props = {
     };
     ProjectList: {
         title: string;
-        projects: { title: string; description: string; link: string }[];
+        projects: { title: string; description: string; link: string, tags: {key: string; title: string}[] }[];
     };
     WritingList: {
         title: string;
@@ -29,14 +30,14 @@ export const config: Config<Props> = {
     components: {
         Profile: {
             fields: {
-                name: { type: "text" },
-                title: { type: "text" },
-                bio: { type: "textarea" },
-                imageSrc: { type: "text" },
-                githubUrl: { type: "text" },
-                twitterUrl: { type: "text" },
-                linkedinUrl: { type: "text" },
-                email: { type: "text" },
+                name: {type: "text"},
+                title: {type: "text"},
+                bio: {type: "textarea"},
+                imageSrc: {type: "text"},
+                githubUrl: {type: "text"},
+                twitterUrl: {type: "text"},
+                linkedinUrl: {type: "text"},
+                email: {type: "text"},
             },
             defaultProps: {
                 name: "Evan You",
@@ -48,7 +49,7 @@ export const config: Config<Props> = {
                 linkedinUrl: "",
                 email: "",
             },
-            render: ({ name, title, bio, imageSrc, githubUrl, twitterUrl, linkedinUrl, email }) => (
+            render: ({name, title, bio, imageSrc, githubUrl, twitterUrl, linkedinUrl, email}) => (
                 <Profile
                     name={name}
                     title={title}
@@ -65,47 +66,68 @@ export const config: Config<Props> = {
         },
         ProjectList: {
             fields: {
-                title: { type: "text" },
+                title: {type: "text"},
                 projects: {
                     type: "array",
                     arrayFields: {
-                        title: { type: "text" },
-                        description: { type: "textarea" },
-                        link: { type: "text" },
+                        title: {type: "text"},
+                        description: {type: "textarea"},
+                        link: {type: "text"},
+                        tags: {
+                            type: "array",
+                            arrayFields: {
+                                title: {type: "text"},
+                                key: { type: "text", visible: false },
+                            },
+                            defaultItemProps: {
+                                title: "Tag",
+                                key: uuid(),
+                            },
+                        }
                     },
                 },
             },
             defaultProps: {
                 title: "Projects",
                 projects: [
-                    { title: "Vue.js", description: "The Progressive JavaScript Framework", link: "https://vuejs.org" },
-                    { title: "Vite", description: "Next Generation Frontend Tooling", link: "https://vitejs.dev" },
+                    {
+                        title: "Vue.js",
+                        description: "The Progressive JavaScript Framework",
+                        link: "https://vuejs.org",
+                        tags: []
+                    },
+                    {
+                        title: "Vite",
+                        description: "Next Generation Frontend Tooling",
+                        link: "https://vitejs.dev",
+                        tags: []
+                    },
                 ],
             },
-            render: ({ title, projects }) => (
-                <ProjectList title={title} projects={projects} />
+            render: ({title, projects}) => (
+                <ProjectList title={title} projects={projects}/>
             ),
         },
         WritingList: {
             fields: {
-                title: { type: "text" },
+                title: {type: "text"},
                 posts: {
                     type: "array",
                     arrayFields: {
-                        title: { type: "text" },
-                        date: { type: "text" },
-                        link: { type: "text" },
+                        title: {type: "text"},
+                        date: {type: "text"},
+                        link: {type: "text"},
                     },
                 },
             },
             defaultProps: {
                 title: "Writing",
                 posts: [
-                    { title: "State of Vue 2024", date: "Jan 1, 2024", link: "#" },
+                    {title: "State of Vue 2024", date: "Jan 1, 2024", link: "#"},
                 ],
             },
-            render: ({ title, posts }) => (
-                <WritingList title={title} posts={posts} />
+            render: ({title, posts}) => (
+                <WritingList title={title} posts={posts}/>
             ),
         },
         VerticalSpace: {
@@ -113,16 +135,16 @@ export const config: Config<Props> = {
                 size: {
                     type: "select",
                     options: [
-                        { label: "Small", value: "24px" },
-                        { label: "Medium", value: "48px" },
-                        { label: "Large", value: "96px" },
+                        {label: "Small", value: "24px"},
+                        {label: "Medium", value: "48px"},
+                        {label: "Large", value: "96px"},
                     ],
                 },
             },
             defaultProps: {
                 size: "48px",
             },
-            render: ({ size }) => <div style={{ height: size }} />,
+            render: ({size}) => <div style={{height: size}}/>,
         },
     },
 };
